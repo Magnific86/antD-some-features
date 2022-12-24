@@ -1,0 +1,7 @@
+.loader {
+    border: 3px dashed darkblue;
+    width: 20rem;
+    height: 20rem;
+    margin: 0 auto;
+    border-radius: 80%;
+}
