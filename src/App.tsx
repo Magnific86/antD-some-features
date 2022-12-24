@@ -1,18 +1,22 @@
 import { Layout } from "antd";
 import Sider from "antd/es/layout/Sider";
-import React, { FC, ChangeEvent, useRef } from "react";
+import React, { FC, useRef } from "react";
 import { AnimeAlbum } from "./components/AnimeAlbum";
 import { MyCarousel } from "./components/MyCarousel";
 import { UsersTable } from "./components/UsersTable";
 import { setCollapse } from "./store/collapsReducer";
 import { useAppDispatch, useAppSelector } from "./store/storeHooks";
 import { Menu } from "antd";
-import type { MenuProps } from "antd";
+import { MenuProps, Typography } from "antd";
 import {
   DesktopOutlined,
-  PieChartOutlined,
-  TeamOutlined,
+  HomeTwoTone,
   UserOutlined,
+  QuestionCircleOutlined,
+  PictureOutlined,
+  GithubOutlined,
+  AreaChartOutlined,
+  FolderOpenOutlined,
 } from "@ant-design/icons";
 import { About } from "./components/About";
 import { setLogin } from "./store/loginReducer";
@@ -20,7 +24,6 @@ import { FormUser } from "./components/FormUser";
 import { Welcome } from "./components/Welcome";
 import { ManyPhoto } from "./components/ManyPhoto";
 import { Lol } from "./components/Lol";
-import { selectArray } from "./components/restArrs";
 
 export const App: FC = () => {
   const collapse = useAppSelector((state) => state.collapse.collapse);
@@ -32,25 +35,13 @@ export const App: FC = () => {
   const { Header, Footer, Content } = Layout;
   type MenuItem = Required<MenuProps>["items"][number];
 
-  //нужно сделать логин
+  const { Link, Title } = Typography;
+
   const loginHandler = (loginType: string): void => {
     dispatch(setLogin(loginType));
   };
 
   const getItem = (
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    action?: (loginType: string) => void //action для выбора состояния
-  ): MenuItem => {
-    return {
-      key,
-      icon,
-      label,
-    };
-  };
-
-  const getItemChildren = (
     label: React.ReactNode,
     key: React.Key,
     icon?: React.ReactNode,
@@ -64,27 +55,14 @@ export const App: FC = () => {
     } as MenuItem;
   };
 
-  const a = () => {
-    return users.map((u) => getItem(u.name, u.id));
-  };
-
-  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setLogin(e.target.value));
-  };
-
   const items: MenuItem[] = [
-    getItem("About", "About", <PieChartOutlined />),
-    getItem("FormUser", "FormUser", <DesktopOutlined />),
-    getItemChildren("User", "sub1", <UserOutlined />, a()),
-    getItemChildren("Photos", "Photos", <TeamOutlined />, [
-      getItem("Album 1", "6"),
-      getItem("Album 2", "8"),
-    ]),
+    getItem("About", "about", <QuestionCircleOutlined />),
+    getItem("Fetch animePhotos", "animeAlbum", <DesktopOutlined />),
+    getItem("Users", "usersTable", <UserOutlined />),
+    getItem("Stock Photos", "manyPhotos", <AreaChartOutlined />),
+    getItem("Carousel", "carousel", <PictureOutlined />),
+    getItem("More", "lol", <FolderOpenOutlined />),
   ];
-
-  /* useEffect(() => {
-    dispatch(setLogin(loginRef?.current.value));
-  }, [loginRef]); */
 
   return (
     <>
@@ -95,24 +73,40 @@ export const App: FC = () => {
           onCollapse={() => dispatch(setCollapse())}
         >
           <div
+            onClick={() => dispatch(setLogin("welcome"))}
             style={{
+              textAlign: "center",
               height: 32,
               margin: 16,
-              background: "rgba(255, 255, 255, 0.2)",
             }}
+          >
+            <HomeTwoTone />
+          </div>
+          <Menu
+            onClick={({ key }) => loginHandler(key)}
+            theme="dark"
+            mode="inline"
+            items={items}
           />
-          <Menu theme="dark" mode="inline" items={items} />
         </Sider>
         <Layout>
           <Header>
-            <div className="flex justify-around text-teal-400 text-3xl">
-              <h1>AntD</h1>
-              <select
-                className="bg-transparent outline-none"
-                onChange={(e) => handleSelect(e)}
+            <div className="flex justify-between text-teal-400 text-3xl">
+              <Typography.Title
+                style={{
+                  color: "midnightblue",
+                  textAlign: "right",
+                  width: "50%",
+                }}
               >
-                {selectArray}
-              </select>
+                AntD
+              </Typography.Title>
+              <Link
+                href="https://github.com/Magnific86/antD-some-features"
+                target={"_blank"}
+              >
+                <GithubOutlined />
+              </Link>
             </div>
           </Header>
           <Content>

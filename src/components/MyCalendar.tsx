@@ -1,15 +1,16 @@
-import React from 'react';
-import { Calendar } from 'antd';
-import type { Dayjs } from 'dayjs';
-import type { CalendarMode } from 'antd/es/calendar/generateCalendar';
+import { FC } from "react";
+import { Calendar } from "antd";
 
-export const MyCalendar: React.FC = () => {
-  const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
-  };
+interface CalendarProps {
+  show: boolean;
+}
 
-  return (
-    <div className="site-calendar-demo-card">
-      <Calendar fullscreen={true} onPanelChange={onPanelChange} />
-    </div>
-  );
+export const MyCalendar: FC<CalendarProps> = ({ show }) => {
+  if (show) {
+    return (
+      <div className="site-calendar-demo-card">
+        <Calendar fullscreen={true} />
+      </div>
+    );
+  }
 };

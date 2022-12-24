@@ -1,7 +1,7 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useAppSelector } from "../store/storeHooks";
 import { MyCalendar } from "./MyCalendar";
-import { Divider, Typography } from "antd";
+import { Divider, Switch, Typography } from "antd";
 import { VerticalAlignTopOutlined } from "@ant-design/icons";
 import { labels } from "./restArrs";
 
@@ -9,6 +9,11 @@ const { Title } = Typography;
 
 export const Welcome: FC = () => {
   const login = useAppSelector((state) => state.login.login);
+  const [calendar, setCalendar] = useState<boolean>(true);
+
+  const handleHideCalendar = () => {
+    setCalendar(!calendar);
+  };
 
   const getTitle = (text: string) => {
     document.title = `${text}`;
@@ -22,13 +27,15 @@ export const Welcome: FC = () => {
 
   if (login === "welcome") {
     return (
-      <div>
-        <Title level={2}>
-          This calendar looks so cool! Left side bar dont work, navigation on
-          select <VerticalAlignTopOutlined />
-        </Title>
+      <div className="mt-4 text-center">
+        <Title >Main Page</Title>
+          <Switch
+            unCheckedChildren="Hide calendar"
+            checkedChildren="Open calendar"
+            onChange={handleHideCalendar}
+          />
         <Divider />
-        <MyCalendar />
+        <MyCalendar show={calendar} />
       </div>
     );
   }
