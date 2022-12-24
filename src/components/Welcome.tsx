@@ -2,7 +2,6 @@ import { FC, useEffect, useState } from "react";
 import { useAppSelector } from "../store/storeHooks";
 import { MyCalendar } from "./MyCalendar";
 import { Divider, Switch, Typography } from "antd";
-import { VerticalAlignTopOutlined } from "@ant-design/icons";
 import { labels } from "./restArrs";
 
 const { Title } = Typography;
@@ -21,19 +20,19 @@ export const Welcome: FC = () => {
 
   useEffect(() => {
     labels.forEach((lab) => {
-      getTitle(lab);
+      lab === login && getTitle(lab);
     });
-  }, []);
+  }, [login]);
 
   if (login === "welcome") {
     return (
       <div className="mt-4 text-center">
-        <Title >Main Page</Title>
-          <Switch
-            unCheckedChildren="Hide calendar"
-            checkedChildren="Open calendar"
-            onChange={handleHideCalendar}
-          />
+        <Title>Main Page</Title>
+        <Switch
+          unCheckedChildren="Hide calendar"
+          checkedChildren="Open calendar"
+          onChange={handleHideCalendar}
+        />
         <Divider />
         <MyCalendar show={calendar} />
       </div>
