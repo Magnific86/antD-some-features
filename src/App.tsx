@@ -20,17 +20,19 @@ import { FormUser } from "./components/FormUser";
 import { Welcome } from "./components/Welcome";
 import { ManyPhoto } from "./components/ManyPhoto";
 import { Lol } from "./components/Lol";
+import { selectArray } from "./components/restArrs";
 
 export const App: FC = () => {
   const collapse = useAppSelector((state) => state.collapse.collapse);
   const users = useAppSelector((state) => state.users.users);
   const login = useAppSelector((state) => state.login.login);
   const dispatch = useAppDispatch();
-  //@ts-ignore
+  //@ts-ignore //я не знаю как описывать рефы в антд, там свои синтетик ивенты у каждого
   const loginRef = useRef(null);
   const { Header, Footer, Content } = Layout;
   type MenuItem = Required<MenuProps>["items"][number];
 
+  //нужно сделать логин
   const loginHandler = (loginType: string): void => {
     dispatch(setLogin(loginType));
   };
@@ -39,7 +41,7 @@ export const App: FC = () => {
     label: React.ReactNode,
     key: React.Key,
     icon?: React.ReactNode,
-    action?: (loginType: string) => void
+    action?: (loginType: string) => void //action для выбора состояния
   ): MenuItem => {
     return {
       key,
@@ -66,6 +68,10 @@ export const App: FC = () => {
     return users.map((u) => getItem(u.name, u.id));
   };
 
+  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(setLogin(e.target.value));
+  };
+
   const items: MenuItem[] = [
     getItem("About", "About", <PieChartOutlined />),
     getItem("FormUser", "FormUser", <DesktopOutlined />),
@@ -79,21 +85,6 @@ export const App: FC = () => {
   /* useEffect(() => {
     dispatch(setLogin(loginRef?.current.value));
   }, [loginRef]); */
-
-  const labels = [
-    'welcome',
-    "about",
-    "animeAlbum",
-    "formUser",
-    "carousel",
-    "usersTable",
-    'manyPhotos',
-    'lol'
-  ].map((lab) => <option key={lab} value={lab}>{lab}</option>);
-
-  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setLogin(e.target.value));
-  };
 
   return (
     <>
@@ -120,7 +111,7 @@ export const App: FC = () => {
                 className="bg-transparent outline-none"
                 onChange={(e) => handleSelect(e)}
               >
-                {labels}
+                {selectArray}
               </select>
             </div>
           </Header>

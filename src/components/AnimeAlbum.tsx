@@ -15,7 +15,9 @@ export const AnimeAlbum: FC = () => {
 
 
   useEffect(() => {
-    dispatch(resetAllAlbumPhotos())
+    if(login === 'animeAlbum') {
+      dispatch(resetAllAlbumPhotos())
+    }
   }, [login])
 
   const fetchAlbumPhotos = async (id: number) => {
