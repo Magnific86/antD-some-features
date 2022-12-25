@@ -13,12 +13,11 @@ export const AnimeAlbum: FC = () => {
   const albumPhotos = useAppSelector((state) => state.albumPhotos.albumPhotos);
   const login = useAppSelector((state) => state.login.login);
 
-
   useEffect(() => {
-    if(login === 'animeAlbum') {
-      dispatch(resetAllAlbumPhotos())
+    if (login === "animeAlbum") {
+      dispatch(resetAllAlbumPhotos());
     }
-  }, [login])
+  }, [login]);
 
   const fetchAlbumPhotos = async (id: number) => {
     try {
@@ -48,26 +47,29 @@ export const AnimeAlbum: FC = () => {
 
   if (login === "animeAlbum") {
     return (
-      <div >
+      <div>
         <div className="flex justify-around">
-        <input
-          type="number"
-          placeholder="fill in some number"
-          value={num}
-          onChange={(e) => handleNum(e)}
-        />
-        
-        <Button onClick={() => handleAddPhotos(num)}>add photos!</Button>
-        <Button onClick={() => handleAddPhotos(5)}>Just add...</Button> /*7*/
-
-       <Typography.Title level={5}>Want prewiev?</Typography.Title>
-        <Switch onChange={() => setPreview(!preview)} />
+          <input
+            type="number"
+            placeholder="fill in some number"
+            value={num}
+            onChange={(e) => handleNum(e)}
+          />
+          <Button onClick={() => handleAddPhotos(num)}>add photos!</Button>
+          <Button onClick={() => handleAddPhotos(5)}>Just add...</Button> /*7*/
+          <Typography.Title level={5}>Want prewiev?</Typography.Title>
+          <Switch onChange={() => setPreview(!preview)} />
         </div>
         <Row>
           {albumPhotos &&
             albumPhotos.map((p) => (
-              <Col>
-                <Image key={p.jpg.image_url} preview={preview} width={100} src={p.jpg.image_url} />
+              <Col span={4}>
+                <Image
+                  key={p.jpg.image_url}
+                  preview={preview}
+                  width={200}
+                  src={p.jpg.image_url}
+                />
               </Col>
             ))}
           {albumPhotos && albumPhotos.length > 0 && (

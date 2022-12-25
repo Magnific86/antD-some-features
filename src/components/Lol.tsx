@@ -76,29 +76,29 @@ export const Lol: FC = () => {
     setRows(e.target.value);
   };
 
+  const radioBtns = [];
+
+  [
+    { key: 2, fn: handle2Cols },
+    { key: 4, fn: handle4Cols },
+    { key: 6, fn: handle6Cols },
+    { key: 8, fn: handle8Cols },
+    { key: 12, fn: handle12Cols },
+  ].forEach((el) => {
+    radioBtns.push(
+      <Radio value={el.key} onChange={el.fn}>
+        {el.key} columns
+      </Radio>
+    );
+  });
+
   if (login === "lol") {
     return (
       <div className="w-full">
         <div className="mx-auto inline">
           <Typography.Title level={5}>Want prewiev?</Typography.Title>
           <Switch onChange={() => setPreview(!preview)} />
-          <Radio.Group defaultValue={6}>
-            <Radio value={2} onChange={handle2Cols}>
-              2 columns
-            </Radio>
-            <Radio value={4} onChange={handle4Cols}>
-              4 columns
-            </Radio>
-            <Radio value={6} onChange={handle6Cols}>
-              6 columns
-            </Radio>
-            <Radio value={8} onChange={handle8Cols}>
-              8 columns
-            </Radio>
-            <Radio value={12} onChange={handle12Cols}>
-              12 columns
-            </Radio>
-          </Radio.Group>
+          <Radio.Group defaultValue={6}>{radioBtns}</Radio.Group>
           <Typography.Title level={3}>Change photos size</Typography.Title>
           <Slider
             min={40}
@@ -110,27 +110,29 @@ export const Lol: FC = () => {
         </div>
         <Divider>Photos</Divider>
         <Row>
-          {albumPhotos &&
-            albumPhotos.map((p) => (
-              <Col span={24 / rows}>
-                <div
-                  style={{ width: width, height: height }}
-                  className="bg-transparent border border-red-500 text-center my-2 flex justify-center items-center"
-                >
-                  <AnImage
-                    key={p.jpg.image_url}
-                    preview={preview}
-                    width={width}
-                    height={height}
-                    src={p.jpg.image_url}
-                  />
-                </div>
-              </Col>
-            ))}
-          {albumPhotos && albumPhotos.length > 0 && (
-            <Button danger onClick={() => dispatch(resetAllAlbumPhotos())}>
-              Clear all
-            </Button>
+          {albumPhotos && (
+            <>
+              {albumPhotos.map((p) => (
+                <Col span={24 / rows}>
+                  <div
+                    style={{ width: width, height: height }}
+                    className="bg-transparent border border-red-500 text-center my-2 flex justify-center items-center"
+                  >
+                    <AnImage
+                      key={p.jpg.image_url}
+                      preview={preview}
+                      width={width}
+                      height={height}
+                      src={p.jpg.image_url}
+                    />
+                  </div>
+                </Col>
+              ))}
+
+              <Button danger onClick={() => dispatch(resetAllAlbumPhotos())}>
+                Clear all
+              </Button>
+            </>
           )}
         </Row>
       </div>
