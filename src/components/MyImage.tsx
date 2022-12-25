@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { useInView } from "react-intersection-observer";
-import { Image, Row, Col, Button, Switch, Typography } from "antd";
+import { Image, Skeleton } from "antd";
 
 interface IMyImage {
   url: string;
@@ -9,7 +9,7 @@ interface IMyImage {
 export const MyImage: FC<IMyImage> = ({ url }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.1,
+    threshold: 0.4,
   });
 
   return (
@@ -17,7 +17,7 @@ export const MyImage: FC<IMyImage> = ({ url }) => {
       {inView ? (
         <Image preview={false} style={{ width: 250, height: 250 }} src={url} />
       ) : (
-        <div style={{ width: 250, height: 250, background: "gray" }}></div>
+        <Skeleton.Image style={{ width: 250, height: 250 }} />
       )}
     </div>
   );

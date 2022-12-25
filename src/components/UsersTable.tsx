@@ -1,19 +1,29 @@
-import React, { useEffect, FC } from "react";
-import { Image, Tag, Typography, Table } from "antd";
+import React, { useEffect, FC, useState } from "react";
+import {
+  Image,
+  Tag,
+  Typography,
+  Table,
+  Layout,
+  Button,
+  Modal,
+  Slider,
+} from "antd";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
 import { getUsers } from "../store/userReducer";
 import { IMyUser } from "../store/storeTypes";
+import { QuestionCircleTwoTone } from "@ant-design/icons";
 
 export const UsersTable: FC = () => {
   const dispatch = useAppDispatch();
   const users = useAppSelector((state) => state.users.users);
   const login = useAppSelector((state) => state.login.login);
+  const [modal, setModal] = useState<boolean>(false);
+  const [total, setTotal] = useState<number>(10);
 
   const fetchTablePhotos = async () => {
     try {
-      const resp = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      );
+      const resp = await fetch("https://jsonplaceholder.typicode.com/users");
       const data = await resp.json();
 
       if (!resp.ok) {
@@ -36,7 +46,6 @@ export const UsersTable: FC = () => {
       title: p,
       dataIndex: p,
       key: p,
-      /* sorter(a, b) =>  */
     });
   });
 
@@ -76,11 +85,52 @@ export const UsersTable: FC = () => {
 
   const mainColumn = [name, ...columns, city];
 
+  const handleTotal = (value: number) => {
+    setTotal(value);
+  };
+
   if (login === "usersTable") {
     return (
-      <div>
-        <Table dataSource={users} columns={mainColumn} />
-      </div>
+      <>
+        <div>
+          <div className="flex justify-center items-start">
+            <Typography.Title>Users Table</Typography.Title>
+            <QuestionCircleTwoTone
+              style={{ width: 50, fontSize: "1.5rem", paddingLeft: 20 }}
+              onClick={() => setModal(true)}
+            />
+          </div>
+          <Slider
+            min={1}
+            max={20}
+            defaultValue={total}
+            onChange={handleTotal}
+            style={{ width: "20%" }}
+          />
+        </div>
+        <div>
+          <Modal
+            open={modal}
+            onOk={() => setModal(false)}
+            onCancel={() => setModal(false)}
+          >
+            <p>
+              Если добавили пользователя вручную, в разделе формы, он будет
+              находится на следущей странице из-за пагинации, также можно
+              изменить пагинацию вручную и регулировать кол-во юзеров на одной
+              странице.
+            </p>
+          </Modal>
+        </div>
+
+        <Table
+          pagination={{
+            pageSize: total,
+          }}
+          dataSource={users}
+          columns={mainColumn}
+        />
+      </>
     );
   }
 };

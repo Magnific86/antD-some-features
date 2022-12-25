@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "./store/storeHooks";
 import { Menu } from "antd";
 import { MenuProps, Typography } from "antd";
 import {
-  DesktopOutlined,
+  BgColorsOutlined,
   HomeTwoTone,
   UserOutlined,
   QuestionCircleOutlined,
@@ -22,8 +22,9 @@ import { About } from "./components/About";
 import { setLogin } from "./store/loginReducer";
 import { FormUser } from "./components/FormUser";
 import { Welcome } from "./components/Welcome";
-import { ManyPhoto } from "./components/ManyPhoto";
+import { ManyPhotos } from "./components/ManyPhotos";
 import { Lol } from "./components/Lol";
+import { BreadCrumb } from "./components/BreadCrumb";
 
 export const App: FC = () => {
   const collapse = useAppSelector((state) => state.collapse.collapse);
@@ -57,7 +58,7 @@ export const App: FC = () => {
 
   const items: MenuItem[] = [
     getItem("About", "about", <QuestionCircleOutlined />),
-    getItem("Fetch animePhotos", "animeAlbum", <DesktopOutlined />),
+    getItem("Fetch some photos", "animeAlbum", <BgColorsOutlined />),
     getItem("Users", "usersTable", <UserOutlined />),
     getItem("Stock Photos", "manyPhotos", <AreaChartOutlined />),
     getItem("Carousel", "carousel", <PictureOutlined />),
@@ -110,14 +111,17 @@ export const App: FC = () => {
             </div>
           </Header>
           <Content>
-            <Welcome />
-            <About />
-            <FormUser />
-            <AnimeAlbum />
-            <MyCarousel />
-            <UsersTable />
-            <ManyPhoto />
-            <Lol />
+            <Layout>
+              <BreadCrumb />
+              <Welcome />
+              <About />
+              <FormUser />
+              <AnimeAlbum />
+              <MyCarousel />
+              <UsersTable />
+              <ManyPhotos />
+              <Lol />
+            </Layout>
           </Content>
         </Layout>
       </Layout>

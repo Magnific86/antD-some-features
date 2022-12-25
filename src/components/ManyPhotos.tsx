@@ -1,5 +1,5 @@
-import React, { useState, FC } from "react";
-import { Image, Row, Col, Button, Switch, Typography, Divider } from "antd";
+import { useState, FC } from "react";
+import { Row, Typography, Divider } from "antd";
 import "./st.css";
 import { useAppSelector } from "../store/storeHooks";
 import { MyImage } from "./MyImage";
@@ -14,7 +14,7 @@ export interface PhotosState {
   photos: IPhoto[];
 }
 
-export const ManyPhoto: FC = () => {
+export const ManyPhotos: FC = () => {
   const login = useAppSelector((state) => state.login.login);
   const [loader, setLoader] = useState<boolean>(true);
   const [photos, setPhotos] = useState<IPhoto[] | null>((): any => {

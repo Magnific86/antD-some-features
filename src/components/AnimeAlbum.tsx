@@ -1,5 +1,5 @@
 import { FC, useState, ChangeEvent, useEffect } from "react";
-import { Image, Row, Col, Button, Switch, Typography } from "antd";
+import { Image, Row, Col, Button, Switch, Typography, Input } from "antd";
 import {
   getAlbumPhotos,
   resetAllAlbumPhotos,
@@ -49,14 +49,14 @@ export const AnimeAlbum: FC = () => {
     return (
       <div>
         <div className="flex justify-around">
-          <input
+          <Input
             type="number"
             placeholder="fill in some number"
             value={num}
             onChange={(e) => handleNum(e)}
           />
           <Button onClick={() => handleAddPhotos(num)}>add photos!</Button>
-          <Button onClick={() => handleAddPhotos(5)}>Just add...</Button> /*7*/
+          <Button onClick={() => handleAddPhotos(5)}>Just add...</Button>
           <Typography.Title level={5}>Want prewiev?</Typography.Title>
           <Switch onChange={() => setPreview(!preview)} />
         </div>
