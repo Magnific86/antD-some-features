@@ -1,47 +1,49 @@
 interface IJPG {
-  image_url: string;
+  image_url: string
 }
 
 export interface IPhoto {
-  jpg: IJPG;
+  jpg: IJPG
 }
 
 export interface CarouselState {
-  carPhotos: IPhoto[];
+  carPhotos: IPhoto[]
 }
 
 export interface AlbumState {
-  albumPhotos: IPhoto[];
+  albumPhotos: IPhoto[]
+  error: string
+  isLoading: boolean
+  list: IPhoto[]
 }
 
 interface IAddress {
-  city: string;
-  street: string;
-  zipcode: string;
+  city: string
+  street: string
+  zipcode: string
 }
 
 export interface IUser {
-  name: string;
-  username: string;
-  email: string;
-  address: IAddress;
+  name: string
+  username: string
+  email: string
+  address: IAddress
 }
 
 export interface IMyUser {
-  id: string;
-  name: string;
-  username: string;
-  email: string;
-  city: string;
-  street: string;
-  zipcode: string;
+  id: string
+  name: string
+  username: string
+  email: string
+  city: string
+  street: string
+  zipcode: string
 }
 
 export interface UsersState {
-  users: IMyUser[];
+  users: IMyUser[]
 }
 
 export interface ICollapse {
-  collapse: boolean;
+  collapse: boolean
 }
-

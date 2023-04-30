@@ -1,53 +1,44 @@
-import React, { useEffect, FC, useState } from "react";
-import {
-  Image,
-  Tag,
-  Typography,
-  Table,
-  Layout,
-  Button,
-  Modal,
-  Slider,
-} from "antd";
-import { useAppDispatch, useAppSelector } from "../store/storeHooks";
-import { getUsers } from "../store/userReducer";
-import { IMyUser } from "../store/storeTypes";
-import { QuestionCircleTwoTone } from "@ant-design/icons";
+import { useEffect, FC, useState } from "react"
+import { Tag, Typography, Table, Modal, Slider } from "antd"
+import { useAppDispatch, useAppSelector } from "../store/storeHooks"
+import { IMyUser } from "../store/storeTypes"
+import { QuestionCircleTwoTone } from "@ant-design/icons"
+import { getUsers } from "../store/reducers/userReducer"
 
 export const UsersTable: FC = () => {
-  const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => state.users.users);
-  const login = useAppSelector((state) => state.login.login);
-  const [modal, setModal] = useState<boolean>(false);
-  const [total, setTotal] = useState<number>(10);
+  const dispatch = useAppDispatch()
+  const users = useAppSelector((state) => state.users.users)
+  const login = useAppSelector((state) => state.login.login)
+  const [modal, setModal] = useState<boolean>(false)
+  const [total, setTotal] = useState<number>(10)
 
   const fetchTablePhotos = async () => {
     try {
-      const resp = await fetch("https://jsonplaceholder.typicode.com/users");
-      const data = await resp.json();
+      const resp = await fetch("https://jsonplaceholder.typicode.com/users")
+      const data = await resp.json()
 
       if (!resp.ok) {
-        throw new Error("Cannot fetch");
+        throw new Error("Cannot fetch")
       }
-      dispatch(getUsers(data));
+      dispatch(getUsers(data))
     } catch (e) {
-      console.error(e.message);
+      console.error(e.message)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchTablePhotos();
-  }, []);
+    fetchTablePhotos()
+  }, [])
 
-  const columns = [];
+  const columns = []
 
-  ["id", "email", "username", "street", "zipcode"].forEach((p) => {
+  ;["id", "email", "username", "street", "zipcode"].forEach((p) => {
     columns.push({
       title: p,
       dataIndex: p,
       key: p,
-    });
-  });
+    })
+  })
 
   const name = {
     title: "name",
@@ -59,7 +50,7 @@ export const UsersTable: FC = () => {
         {text}
       </Typography.Text>
     ),
-  };
+  }
 
   const city = {
     title: "city",
@@ -81,13 +72,13 @@ export const UsersTable: FC = () => {
     ],
     onFilter: (value: string, item: IMyUser) => item.city.includes(value),
     render: (text: string) => <Tag color="green">{text}</Tag>,
-  };
+  }
 
-  const mainColumn = [name, ...columns, city];
+  const mainColumn = [name, ...columns, city]
 
   const handleTotal = (value: number) => {
-    setTotal(value);
-  };
+    setTotal(value)
+  }
 
   if (login === "usersTable") {
     return (
@@ -100,25 +91,13 @@ export const UsersTable: FC = () => {
               onClick={() => setModal(true)}
             />
           </div>
-          <Slider
-            min={1}
-            max={20}
-            defaultValue={total}
-            onChange={handleTotal}
-            style={{ width: "20%" }}
-          />
+          <Slider min={1} max={20} defaultValue={total} onChange={handleTotal} style={{ width: "20%" }} />
         </div>
         <div>
-          <Modal
-            open={modal}
-            onOk={() => setModal(false)}
-            onCancel={() => setModal(false)}
-          >
+          <Modal open={modal} onOk={() => setModal(false)} onCancel={() => setModal(false)}>
             <p>
-              Если добавили пользователя вручную, в разделе формы, он будет
-              находится на следущей странице из-за пагинации, также можно
-              изменить пагинацию вручную и регулировать кол-во юзеров на одной
-              странице.
+              Если добавили пользователя вручную, в разделе формы, он будет находится на следущей странице из-за
+              пагинации, также можно изменить пагинацию вручную и регулировать кол-во юзеров на одной странице.
             </p>
           </Modal>
         </div>
@@ -131,6 +110,6 @@ export const UsersTable: FC = () => {
           columns={mainColumn}
         />
       </>
-    );
+    )
   }
-};
+}

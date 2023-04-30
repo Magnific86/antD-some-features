@@ -2,8 +2,8 @@ import { Breadcrumb, Layout } from "antd";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
 import { labels } from "./restArrs";
 import { HomeOutlined } from "@ant-design/icons";
-import { setLogin } from "../store/loginReducer";
 import { FC } from "react";
+import { setLogin } from "../store/reducers/loginReducer";
 
 export const BreadCrumb: FC = () => {
   const dispatch = useAppDispatch();
@@ -13,7 +13,7 @@ export const BreadCrumb: FC = () => {
   labels.forEach((lab) => {
     if (login === lab) {
       breadArr.push(
-        <Breadcrumb.Item onClick={() => dispatch(setLogin(lab))}>
+        <Breadcrumb.Item key={lab} onClick={() => dispatch(setLogin(lab))}>
           <p className="text-2xl">{lab}</p>
         </Breadcrumb.Item>
       );

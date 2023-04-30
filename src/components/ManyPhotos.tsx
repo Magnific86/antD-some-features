@@ -46,7 +46,7 @@ export const ManyPhotos: FC = () => {
           {!loader ? (
             photos.map((p) => <MyImage url={p.url} key={p.id} />)
           ) : (
-            <div className="loader"></div>
+            <div className="loader"/>
           )}
         </Row>
       </div>

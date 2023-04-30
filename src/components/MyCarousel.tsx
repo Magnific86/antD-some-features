@@ -1,13 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
 import { Button, Carousel, Image, Divider } from "antd";
-import { getCarPhotos } from "../store/carPhotosReducer";
+import { getCarPhotos } from "../store/reducers/carPhotosReducer";
 
 export const MyCarousel = () => {
   const carPhotos = useAppSelector((state) => state.carPhotos.carPhotos);
   const login = useAppSelector(state => state.login.login)
   const dispatch = useAppDispatch();
-  // @ts-ignore
   const ref = useRef(null);
 
   const fetchCarPhotos = async () => {

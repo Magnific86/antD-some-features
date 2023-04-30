@@ -1,69 +1,63 @@
-import { useState, ChangeEvent, FormEvent, FC } from "react";
-import { useAppDispatch, useAppSelector } from "../store/storeHooks";
-import { addNewUser } from "../store/userReducer";
+import { useState, ChangeEvent, FormEvent, FC } from "react"
+import { useAppDispatch, useAppSelector } from "../store/storeHooks"
+import { addNewUser } from "../store/reducers/userReducer"
 
 export const FormUser: FC = () => {
-  const dispatch = useAppDispatch();
-  const [name, setName] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [city, setCity] = useState<string>("");
-  const [street, setStreet] = useState<string>("");
-  const [zipcode, setZipcode] = useState<string>("");
-  const login = useAppSelector((state) => state.login.login);
+  const dispatch = useAppDispatch()
+  const [name, setName] = useState<string>("")
+  const [username, setUsername] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
+  const [city, setCity] = useState<string>("")
+  const [street, setStreet] = useState<string>("")
+  const [zipcode, setZipcode] = useState<string>("")
+  const login = useAppSelector((state) => state.login.login)
 
   const handleName = (e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
+    setName(e.target.value)
+  }
 
   const handleNick = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-  };
+    setUsername(e.target.value)
+  }
 
   const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+    setEmail(e.target.value)
+  }
 
   const handleCity = (e: ChangeEvent<HTMLInputElement>) => {
-    setCity(e.target.value);
-  };
+    setCity(e.target.value)
+  }
 
   const handleStreet = (e: ChangeEvent<HTMLInputElement>) => {
-    setStreet(e.target.value);
-  };
+    setStreet(e.target.value)
+  }
 
   const handleZip = (e: ChangeEvent<HTMLInputElement>) => {
-    setZipcode(e.target.value);
-  };
+    setZipcode(e.target.value)
+  }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    dispatch(
-      addNewUser({ name, username, email, city, street, zipcode, id: "1" })
-    );
-    setName("");
-    setUsername("");
-    setEmail("");
-    setCity("");
-    setStreet("");
-    setZipcode("");
-  };
+    e.preventDefault()
+    dispatch(addNewUser({ name, username, email, city, street, zipcode, id: "1" }))
+    setName("")
+    setUsername("")
+    setEmail("")
+    setCity("")
+    setStreet("")
+    setZipcode("")
+  }
 
-  const poles = [];
-  ["name", "username", "email"].forEach((p) => {
+  const poles = []
+  ;["name", "username", "email"].forEach((p) => {
     poles.push(
       <div className="flex">
         <label className="text-2xl pr-4" htmlFor={p}>
           {p}
         </label>
-        <input
-          className="bg-transparent border-b border-teal-400 py-3 text-1xl outline-none"
-          type="text"
-          id={p}
-        />
+        <input className="bg-transparent border-b border-teal-400 py-3 text-1xl outline-none" type="text" id={p} />
       </div>
-    );
-  });
+    )
+  })
 
   if (login === "formUser") {
     return (
@@ -142,9 +136,13 @@ export const FormUser: FC = () => {
               onChange={(e) => handleZip(e)}
             />
           </div>
-          <input className="bg-teal-400 rounded-full px-6 py-3 my-8 text-purple-900 w-60 mx-auto" type="submit" value="add" />
+          <input
+            className="bg-teal-400 rounded-full px-6 py-3 my-8 text-purple-900 w-60 mx-auto"
+            type="submit"
+            value="add"
+          />
         </form>
       </div>
-    );
+    )
   }
-};
+}

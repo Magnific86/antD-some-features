@@ -5,7 +5,7 @@ interface ILogin {
 }
 
 const initialState: ILogin = {
-  login: "welcome",
+  login: "usersTable",
 };
 
 const sliceReducer = createSlice({
