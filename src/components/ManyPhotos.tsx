@@ -1,6 +1,5 @@
 import { useState, FC } from "react";
 import { Row, Typography, Divider } from "antd";
-import "./st.css";
 import { useAppSelector } from "../store/storeHooks";
 import { MyImage } from "./MyImage";
 

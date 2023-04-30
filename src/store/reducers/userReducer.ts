@@ -12,17 +12,15 @@ const sliceReducer = createSlice({
   reducers: {
     getUsers(state, action: PayloadAction<IUser[]>) {
       state.users = [
-        ...action.payload.map((user) => {
-          return {
-            id: v4(),
-            name: user.name,
-            username: user.username,
-            email: user.email,
-            city: user.address.city,
-            street: user.address.street,
-            zipcode: user.address.zipcode,
-          }
-        }),
+        ...action.payload.map((user) => ({
+          id: v4(),
+          name: user.name,
+          username: user.username,
+          email: user.email,
+          city: user.address.city,
+          street: user.address.street,
+          zipcode: user.address.zipcode,
+        })),
       ]
     },
     addNewUser(state, action: PayloadAction<IMyUser>) {
